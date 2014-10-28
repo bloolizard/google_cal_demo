@@ -9,6 +9,20 @@
             height: 100px;
             float: left;
         }
+        #datepicker {
+            float: left;
+        }
+        .month {
+            font-weight: bold;
+        }
+        .week {
+            max-width: 110px;
+        }
+        .day {
+            float: left;
+            padding: 2px;
+        }
+
     </style>
 </head>
 <body>
@@ -17,38 +31,72 @@
 </div>
 <script>
     var utils = {
-        createElement: function(elemType, innerHTML, className){
+        createElement: function(elemType, innerHTML, className, appendTo){
             var el = document.createElement(elemType);
             el.className = className;
             el.innerHTML = innerHTML;
+            if (appendTo) {
+                appendTo.appendChild(el);
+            }
             return el;
         }
+    };
+    // returns the month name
+    Date.prototype.getMonthName = function(){
+        var months = ['January', 'February', 'March', 'April', 'May',
+            'June','July', 'August', 'September', 'October', 'November', 'December'];
+        return months[this.getMonth()];
     };
 
     window.addEventListener('load', function(){
 
         function Calendar (){
+            this.current = new Date();
+            this.weekdays = ['S', 'M', 'T', 'W', 'Th', 'F','S'];
+            this.month = Date;
             this.html = '';
+            this.dates = [];
         }
-        function createRow(){
+        Calendar.prototype.createRow = function(){
             var row = document.createElement('div');
             row.className = 'row';
             for (var i = 0; i<7; i++){
                 var column = document.createElement('div');
-                column.innerHTML = i;
+                column.innerHTML = this.dates[i];
                 column.className = 'box';
                 row.appendChild(column);
             }
             return row;
-        }
+        };
+
         Calendar.prototype.generateCalendar = function(){
+            // generate dates in month
+
             var div = document.getElementById('datepicker');
 
-            //generate columns
-            for (var i = 0; i<5; i++){
-                var row = createRow();
-                div.appendChild(row);
+            // append title for month
+            utils.createElement('div', this.current.getMonthName(), 'month', div);
+
+            // fill the dates array
+            for(var i = 0; i<31; i++){
+                var date = new Date(2014, 10, i); // current date
+                this.dates.push(date);
             }
+
+            var counter = 0;
+            for (var j = 0; j < 4; j++){
+                var week = document.createElement('div');
+                week.className = 'week'
+                for (var i = 0; i<7; i++){
+                    var date_to_add = this.dates[0+counter].getDate();
+                    console.log(date_to_add.toString());
+                    var weekdays = utils.createElement('div', date_to_add.toString(), 'day', week);
+                    counter += 1;
+                }
+                div.appendChild(week);
+            }
+
+
         };
 
         var _cal = new Calendar();
