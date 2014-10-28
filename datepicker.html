@@ -64,17 +64,17 @@
             return new Date();
         };
 
-        Calendar.prototype.createRow = function(){
-            var row = document.createElement('div');
-            row.className = 'row';
-            for (var i = 0; i<7; i++){
-                var column = document.createElement('div');
-                column.innerHTML = this.dates[i];
-                column.className = 'box';
-                row.appendChild(column);
-            }
-            return row;
-        };
+//        Calendar.prototype.createRow = function(){
+//            var row = document.createElement('div');
+//            row.className = 'row';
+//            for (var i = 0; i<7; i++){
+//                var column = document.createElement('div');
+//                column.innerHTML = this.dates[i];
+//                column.className = 'box';
+//                row.appendChild(column);
+//            }
+//            return row;
+//        };
 
         Calendar.prototype.generateCalendar = function(){
             // generate dates in month
