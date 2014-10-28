@@ -13,6 +13,7 @@
             float: left;
         }
         .month {
+            text-align: center;
             font-weight: bold;
         }
         .week {
@@ -84,7 +85,7 @@
 
 
             // append title for month
-            utils.createElement('div', this.current.getMonthName(), 'month', div);
+            utils.createElement('div', this.current.getMonthName() + ' ' + this.current.getFullYear(), 'month', div);
 
             //add days of the week
             var weekday_header = document.createElement('div');
