@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+<div id="datepicker">
+
+</div>
+<script>
+    var utils = {
+        createElement: function(elemType, innerHTML, className){
+            var el = document.createElement(elemType);
+            el.className = className;
+            el.innerHTML = innerHTML;
+            return el;
+        }
+    };
+
+    window.addEventListener('load', function(){
+
+        function Calendar (){
+            this.html = '';
+        }
+        function createRow(){
+            var row = document.createElement('div');
+            row.className = 'row';
+            for (var i = 0; i<7; i++){
+                var column = document.createElement('div');
+                column.innerHTML = i;
+                column.className = 'box';
+                row.appendChild(column);
+            }
+            return row;
+        }
+        Calendar.prototype.generateCalendar = function(){
+            var div = document.getElementById('datepicker');
+
+            //generate columns
+            for (var i = 0; i<5; i++){
+                var row = createRow();
+                div.appendChild(row);
+            }
+        };
+
+        var _cal = new Calendar();
+        _cal.generateCalendar();
+        console.log(_cal);
+
+    });
+
+
+
+
+
+</script>
+</body>
+</html>
